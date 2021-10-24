@@ -1,16 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import HomeContainer from '../views/home/containers/HomeContainer';
-
-function Home(props) {
+function Visual(props) {
   const {
 
   } = props;
 
   return (
     <Container>
-      <HomeContainer />
+      Visual
     </Container>
   );
 }
@@ -19,4 +17,4 @@ const Container = styled.div`
 
 `;
 
-export default Home;
+export default Visual;

@@ -3,11 +3,13 @@ import styled from 'styled-components';
 
 import Routes from './Routes';
 import HeaderContainer from './views/shared/header/containers/HeaderContainer';
+import TopicsLnbContainer from './views/topics/containers/TopicsLnbContainer';
 
 function App(props) {
   return (
     <Container>
       <HeaderContainer />
+      <TopicsLnbContainer />
       <Routes />
     </Container>
   );
