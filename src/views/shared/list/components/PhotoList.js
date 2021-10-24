@@ -1,14 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function PhotoList(props) {
-  const {
-
-  } = props;
-
+function PhotoList({ data }) {
   return (
     <Container>
-      PhotoList
+      {
+            data.map((item) => <img src={item.urls.small} alt="" />)
+        }
     </Container>
   );
 }

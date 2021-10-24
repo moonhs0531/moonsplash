@@ -3,18 +3,14 @@ import styled from 'styled-components';
 
 import Visual from '../components/Visual';
 import Banner from '../components/Banner';
-import PhotoList from '../../shared/list/components/PhotoList';
+import MainPhotoListContainer from './MainPhotoListContainer';
 
-function HomeContainer(props) {
-  const {
-
-  } = props;
-
+function HomeContainer() {
   return (
     <Container>
       <Visual />
       <Banner />
-      <PhotoList />
+      <MainPhotoListContainer />
     </Container>
   );
 }
