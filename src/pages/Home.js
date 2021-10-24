@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import Routes from "./Routes";
 
-function App(props) {
+function Home(props) {
 
-    
+    const{
+
+    } = props;
+
     return(
         <Container>
-            <Routes/>
+            Home
         </Container>
     )
 }
@@ -16,4 +18,4 @@ const Container = styled.div`
 
 `;
 
-export default App;
+export default Home;
