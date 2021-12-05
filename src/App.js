@@ -5,17 +5,20 @@ import Routes from './Routes';
 import HeaderContainer from './views/shared/header/containers/HeaderContainer';
 import TopicsLnbContainer from './views/topics/containers/TopicsLnbContainer';
 import { GlobalStyle } from './style/GlobalStyle';
+import {Route} from "react-router-dom";
 
-function App(props) {
-  return (
-    <Container>
-      <GlobalStyle />
-      <HeaderContainer />
-      <TopicsLnbContainer />
-      <Routes />
-    </Container>
-  );
-}
+const App = () => {
+
+
+    return(
+        <Container>
+            <GlobalStyle/>
+            <HeaderContainer/>
+            <Route exact path={['/', '/topics', 'topics/:slug']} component={TopicsLnbContainer}/>
+            <Routes/>
+        </Container>
+        )
+};
 
 const Container = styled.div`
 

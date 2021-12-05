@@ -65,4 +65,18 @@ export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+  
+  body {
+    font-family: '-apple-system', 'BlinkMacSystemFont', 'Apple SD Gothic Neo', 'sans-serif';
+  }
+  
+  .hightlighter{
+    opacity: .8;
+    transition: 0.3s;
+    
+    &:hover{
+      opacity: 1;
+    }
+  }
+  
 `;

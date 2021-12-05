@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function PhotoList({ data }) {
+import { IconMenu } from '../../../../icons';
+
+function Menu() {
   return (
     <Container>
-      {
-            data.map((item) => <img src={item.urls.small} alt="" />)
-        }
+      <IconMenu />
     </Container>
   );
 }
@@ -15,4 +15,4 @@ const Container = styled.div`
 
 `;
 
-export default PhotoList;
+export default Menu;

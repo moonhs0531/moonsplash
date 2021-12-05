@@ -4,16 +4,17 @@ import styled from 'styled-components';
 import Visual from '../components/Visual';
 import Banner from '../components/Banner';
 import MainPhotoListContainer from './MainPhotoListContainer';
+import { ContentContainer } from '../../shared/layout/Layout.Styled';
 
-function HomeContainer() {
-  return (
-    <Container>
-      <Visual />
+const HomeContainer = () => (
+  <Container>
+    <Visual />
+    <ContentContainer>
       <Banner />
       <MainPhotoListContainer />
-    </Container>
-  );
-}
+    </ContentContainer>
+  </Container>
+);
 
 const Container = styled.div`
 

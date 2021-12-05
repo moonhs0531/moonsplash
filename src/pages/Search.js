@@ -1,17 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import SearchContainer from "../views/search/containers/SearchContainer";
+import SearchLnbContainer from "../views/search/containers/SearchLnbContainer";
 
-function Search(props) {
-  const {
-
-  } = props;
-
-  return (
-    <Container>
-      Search
-    </Container>
-  );
-}
+const Search = () => (
+  <Container>
+      <SearchLnbContainer/>
+      <SearchContainer/>
+  </Container>
+);
 
 const Container = styled.div`
 

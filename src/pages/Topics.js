@@ -1,17 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Topics(props) {
-  const {
-
-  } = props;
-
-  return (
-    <Container>
-      Topics
-    </Container>
-  );
-}
+const Topics = () => (
+  <Container>
+    Topics
+  </Container>
+);
 
 const Container = styled.div`
 
