@@ -1,21 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import ScrollMenu from "../../shared/scrollMenu";
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-function TopicsScrollMenu({data}) {
+import ScrollMenu from '../../shared/scrollMenu';
 
-    // const renderItem = (item) => <NavLink>{item.title}</NavLink>
+function TopicsScrollMenu({ data }) {
+  // const renderItem = (item) => <NavLink>{item.title}</NavLink>
 
-    return(
-        <Container>
-            <ScrollMenu data={data}>
-                {(item) => (
-                    <NavLink to={`/topics/${item.slug}`}>{item.title}</NavLink>
-                )}
-            </ScrollMenu>
-        </Container>
-    )
+  return (
+    <Container>
+      <ScrollMenu data={data}>
+        {(item) => (
+          <NavLink to={`/topics/${item.slug}`}>{item.title}</NavLink>
+        )}
+      </ScrollMenu>
+    </Container>
+  );
 }
 
 const Container = styled.div`

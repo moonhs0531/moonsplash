@@ -1,68 +1,70 @@
-import React, {Fragment, useMemo, useRef, useState} from 'react';
+import React, {
+  Fragment, useMemo, useRef, useState,
+} from 'react';
 import styled from 'styled-components';
-import {IconShevronLeft, IconShevronRight} from "../../../icons";
 
-function ScrollMenu({data, children}) {
+import { IconShevronLeft, IconShevronRight } from '../../../icons';
 
-    const trackRef = useRef();
+function ScrollMenu({ data, children }) {
+  const trackRef = useRef();
 
-    const [scrollLeft, setScrollLeft] = useState(0);
-    const [maxScroll, setMaxScroll] = useState(1);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [maxScroll, setMaxScroll] = useState(1);
 
-    const handleScroll = (e) => {
-        const {scrollWidth, clientWidth} = e.target;
-        setScrollLeft(e.target.scrollLeft);
-        setMaxScroll(scrollWidth - clientWidth);
-    }
+  const handleScroll = (e) => {
+    const { scrollWidth, clientWidth } = e.target;
+    setScrollLeft(e.target.scrollLeft);
+    setMaxScroll(scrollWidth - clientWidth);
+  };
 
-    const scrollToLeft = () => {
-        trackRef.current.scrollLeft -= 300;
-    }
+  const scrollToLeft = () => {
+    trackRef.current.scrollLeft -= 300;
+  };
 
-    const scrollToLight = () => {
-        trackRef.current.scrollLeft += 300;
-    }
+  const scrollToLight = () => {
+    trackRef.current.scrollLeft += 300;
+  };
 
-    const start = scrollLeft === 0;
-    const end = scrollLeft === maxScroll;
+  const start = scrollLeft === 0;
+  const end = scrollLeft === maxScroll;
 
-    return useMemo( () => (
-        <Container>
-            {
+  return useMemo(() => (
+    <Container>
+      {
                 !start
                 && (
-                    <>
-                        <Fog className="left"/>
-                        <Arrow className="left" onClick={scrollToLeft}>
-                            <IconShevronLeft/>
-                        </Arrow>
-                    </>
+                <>
+                  <Fog className="left" />
+                  <Arrow className="left" onClick={scrollToLeft}>
+                    <IconShevronLeft />
+                  </Arrow>
+                </>
                 )
             }
 
-            <Track ref={trackRef} onScroll={handleScroll}>
-            {
+      <Track ref={trackRef} onScroll={handleScroll}>
+        {
                 data.map((item, index) => (
-                    <Fragment key={item.title || index}>
-                        {children(item)}
-                    </Fragment>
+                  <Fragment key={item.title || index}>
+                    {children(item)}
+                  </Fragment>
                 ))
             }
-            </Track>
+      </Track>
 
-            {
+      {
                 !end
                 && (
-                    <>
-                        <Arrow className="right" onClick={scrollToLight}>
-                            <IconShevronRight/>
-                        </Arrow>
-                        <Fog className="right"/>
-                    </>
+                <>
+                  <Arrow className="right" onClick={scrollToLight}>
+                    <IconShevronRight />
+                  </Arrow>
+                  <Fog className="right" />
+                </>
                 )
             }
-        </Container>
-    ), [data, start, end])
+    </Container>
+  ), [data, start, end]);
 }
 
 const Container = styled.div`

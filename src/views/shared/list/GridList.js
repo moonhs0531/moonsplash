@@ -1,21 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function GridList({data, children}) {
-
-    return(
-        <Container>
-            <Row>
-            {
+function GridList({ data = [], children }) {
+  return (
+    <Container>
+      <Row>
+        {
                 data.map((item) => (
-                    <Col>
-                        {children(item)}
-                    </Col>
+                  <Col>
+                    {children(item)}
+                  </Col>
                 ))
             }
-            </Row>
-        </Container>
-    )
+      </Row>
+    </Container>
+  );
 }
 
 const Container = styled.div`

@@ -1,41 +1,38 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function UserItem({item}) {
-
-    return(
-        <Container>
-            <UserContent>
-                <User>
-                    <UserInfo>
-                        <img src={item.profile_image.medium} alt=""/>
-                        <UserText>
-                            <h3>{item.name}</h3>
-                            <p>@{item.username}</p>
-                        </UserText>
-                    </UserInfo>
-                    {
-                        item.for_hire &&
-                        <button>
-                            hire
-                        </button>
+function UserItem({ item }) {
+  return (
+    <Container>
+      <UserContent>
+        <User>
+          <UserInfo>
+            <img src={item.profile_image.medium} alt="" />
+            <UserText>
+              <h3>{item.name}</h3>
+              <p>@{item.username}</p>
+            </UserText>
+          </UserInfo>
+          {
+                        item.for_hire
+                        && <button type="submit">hire</button>
                     }
-                </User>
+        </User>
 
-                <UserImg>
+        <UserImg>
 
-                {
-                    item.photos.map((img) => <img src={img.urls.thumb} alt=""/> )
+          {
+                    item.photos.map((img) => <img src={img.urls.thumb} alt="" />)
                 }
-                </UserImg>
+        </UserImg>
 
-                <Button>
-                    View profile
-                </Button>
+        <Button>
+          View profile
+        </Button>
 
-            </UserContent>
-        </Container>
-    )
+      </UserContent>
+    </Container>
+  );
 }
 
 const Container = styled.div`

@@ -1,42 +1,35 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import SearchScrollMenu from "../components/SearchScrollMenu";
-import {useParams} from "react-router-dom";
-import axios from "axios";
-import {ContentContainer} from "../../shared/layout/Layout.Styled";
+import { useLocation, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import qs from 'qs';
+
+import SearchScrollMenu from '../components/SearchScrollMenu';
+import { ContentContainer } from '../../shared/layout/Layout.Styled';
+import { ActionCreators } from '../../../redux/search/slice';
 
 function RelatedSearchContainer() {
+  const dispatch = useDispatch();
+  const { query } = useParams();
+  const location = useLocation();
+  const relatedSearches = useSelector((state) => state.search.related_searches);
+  const { color, orientation } = qs.parse(location.search, { ignoreQueryPrefix: true });
 
-    const {query} = useParams();
-    const [relatedSearches, setRelatedSearches] = useState([]);
+  console.log('relatedsearch', relatedSearches);
 
-    const searchRelated = useCallback(async () => {
-            const config = {
-                url: 'https://api.unsplash.com/search',
-                method: 'get',
-                params: {
-                    query
-                },
-                headers: {
-                    Authorization: 'Client-ID a8pR4zifcQaz3GEVTfinqVtgeFZ6zXS5mpr8fZ_b-7M',
-                },
-            }
+  useEffect(() => {
+    dispatch(ActionCreators.getSearch({
+      query, color, orientation,
+    }));
+  }, [query, color, orientation]);
 
-            const result = await axios(config);
-            setRelatedSearches(result.data.related_searches);
-        },[query]
-    )
-    useEffect(() => {
-        searchRelated();
-    }, [searchRelated])
-
-    return(
-        <Container>
-            <ContentContainer>
-                <SearchScrollMenu data={relatedSearches}/>
-            </ContentContainer>
-        </Container>
-    )
+  return (
+    <Container>
+      <ContentContainer>
+        <SearchScrollMenu data={relatedSearches} />
+      </ContentContainer>
+    </Container>
+  );
 }
 
 const Container = styled.div`

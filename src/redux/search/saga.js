@@ -1,38 +1,83 @@
-import {call, put, select, takeLatest} from 'redux-saga/effects';
-import {ActionCreators, ActionTypes} from "./slice";
-import {getSearchCollectionsRest, getSearchPhotosRest, getSearchUsersRest} from "../../api";
+import {
+  call, put, select, takeLatest,
+} from 'redux-saga/effects';
 
-function* getSearchPhotos({ payload }){
-    const data = yield call(getSearchPhotosRest, payload); //통신 call
+import { ActionCreators, ActionTypes } from './slice';
+import { getSearchCollectionsRest, getSearchPhotosRest, getSearchUsersRest } from '../../api';
+import { getSearchRest } from '../../api/search/getSearchRest';
 
-    yield put(ActionCreators.setSearchPhotos(data)); // 업데이트 put
+function* getSearchPhotos({ payload }) {
+  const state = yield select();
+
+  const { results, total, total_pages } = yield call(getSearchPhotosRest, payload); // 통신 call
+  const prevResults = state.search.photos.results || [];
+
+  const accResults = [
+    ...prevResults,
+    ...results,
+  ];
+
+  yield put(ActionCreators.setSearchPhotos({
+    total,
+    total_pages,
+    results: accResults,
+  })); // 업데이트 put
 }
 
-function* getSearchCollections({ payload }){
+function* getSearchCollections({ payload }) {
+  const state = yield select();
 
-    const data = yield call(getSearchCollectionsRest, payload);
+  const { results, total, total_pages } = yield call(getSearchCollectionsRest, payload);
+  const prevResults = state.search.collections.results || [];
 
-    yield put(ActionCreators.setSearchCollections(data));
+  const accResults = [
+    ...prevResults,
+    ...results,
+  ];
+
+  yield put(ActionCreators.setSearchCollections({
+    total,
+    total_pages,
+    results: accResults,
+  }));
 }
 
-function* getSearchUsers({ payload }){
-    const state = yield select();
+function* getSearchUsers({ payload }) {
+  const state = yield select();
 
-    const data = yield call(getSearchUsersRest, payload)
+  const { results, total, total_pages } = yield call(getSearchUsersRest, payload);
+  const prevResults = state.search.users.results || [];
 
-    const searchUsers = [
-        ...state.search.users.results,
-        ...data
-    ]
+  const accResults = [
+    ...prevResults,
+    ...results,
+  ];
 
-    yield put(ActionCreators.setSearchUsers(searchUsers))
+  yield put(ActionCreators.setSearchUsers(
+    // ...data,
+    // ...accResults
+    {
+      total,
+      total_pages,
+      results: accResults,
+    },
+  ));
+}
+
+function* getSearch({ payload }) {
+  const searchResults = yield call(getSearchRest, payload);
+  yield put(ActionCreators.setSearch(
+    searchResults,
+  ));
+
+  console.log('@@', searchResults);
 }
 
 function* saga() {
-    yield takeLatest(ActionTypes.GET_SEARCH_PHOTOS, getSearchPhotos)
-    yield takeLatest(ActionTypes.GET_SEARCH_COLLECTIONS, getSearchCollections)
-    yield takeLatest(ActionTypes.GET_SEARCH_USERS, getSearchUsers)
+  yield takeLatest(ActionTypes.GET_SEARCH, getSearch);
+  yield takeLatest(ActionTypes.GET_SEARCH_PHOTOS, getSearchPhotos);
+  yield takeLatest(ActionTypes.GET_SEARCH_COLLECTIONS, getSearchCollections);
+  yield takeLatest(ActionTypes.GET_SEARCH_USERS, getSearchUsers);
 }
 
 export default saga;
-

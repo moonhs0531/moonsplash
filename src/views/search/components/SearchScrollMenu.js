@@ -1,19 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import ScrollMenu from "../../shared/scrollMenu";
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-function SearchScrollMenu({data}) {
+import ScrollMenu from '../../shared/scrollMenu';
 
-    return(
-        <Container>
-            <ScrollMenu data={data}>
-                {(item) => (
-                    <NavLink to={`/search/photos/${item.title}`}>{item.title}</NavLink>
-                )}
-            </ScrollMenu>
-        </Container>
-    )
+function SearchScrollMenu({ data = [] }) {
+  return (
+    <Container>
+      <ScrollMenu data={data}>
+        {(item) => (
+          <NavLink to={`/search/photos/${item.title}`}>{item.title}</NavLink>
+        )}
+      </ScrollMenu>
+    </Container>
+  );
 }
 
 const Container = styled.div`

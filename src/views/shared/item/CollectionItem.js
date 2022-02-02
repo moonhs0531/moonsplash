@@ -1,40 +1,40 @@
 import React from 'react';
 import styled from 'styled-components';
-import Tags from "../tags";
 
-function CollectionItem({item}) {
+import Tags from '../tags';
 
-    return(
-        <Container>
-            <Thumb>
-                    <Inner>
-                        <Left>
-                            <ImageBox>
-                                <img src={item.preview_photos?.[0]?.urls.regular} alt=""/>
-                            </ImageBox>
-                        </Left>
-                        <Right>
-                            <Top>
-                                <ImageBox>
-                                    <img src={item.preview_photos?.[1]?.urls.regular} alt=""/>
-                                </ImageBox>
-                            </Top>
-                            <Bottom>
-                                <ImageBox>
-                                    <img src={item.preview_photos?.[2]?.urls.regular} alt=""/>
-                                </ImageBox>
-                            </Bottom>
-                        </Right>
-                    </Inner>
-            </Thumb>
+function CollectionItem({ item }) {
+  return (
+    <Container>
+      <Thumb>
+        <Inner>
+          <Left>
+            <ImageBox>
+              <img src={item.preview_photos?.[0]?.urls.regular} alt="" />
+            </ImageBox>
+          </Left>
+          <Right>
+            <Top>
+              <ImageBox>
+                <img src={item.preview_photos?.[1]?.urls.regular} alt="" />
+              </ImageBox>
+            </Top>
+            <Bottom>
+              <ImageBox>
+                <img src={item.preview_photos?.[2]?.urls.regular} alt="" />
+              </ImageBox>
+            </Bottom>
+          </Right>
+        </Inner>
+      </Thumb>
 
-            <Desc>
-                <h3>{item.title}</h3>
-                <p>{item.total_photos} photos ·  Curated by {item.user.name}</p>
-                <Tags data={item.tags} />
-            </Desc>
-        </Container>
-    )
+      <Desc>
+        <h3>{item.title}</h3>
+        <p>{item.total_photos} photos ·  Curated by {item.user.name}</p>
+        <Tags data={item.tags} limit={3} />
+      </Desc>
+    </Container>
+  );
 }
 
 const Container = styled.div`
@@ -50,7 +50,6 @@ const Thumb = styled.div`
     opacity: 0.85;
   }
 `;
-
 
 const Inner = styled.div`
   position: absolute;
@@ -92,7 +91,6 @@ const ImageBox = styled.div`
     object-fit: cover;
   }
 `;
-
 
 const Desc = styled.div`
   padding-top: 16px;

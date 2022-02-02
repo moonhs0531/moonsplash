@@ -1,37 +1,59 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {ActionCreators} from "../../../redux/search/slice";
-import {ContentContainer} from "../../shared/layout/Layout.Styled";
-import PhotoList from "../../shared/list/PhotoList";
-import Spinner from "../../shared/loader/Spinner";
-import {useInViewport} from "../../../hocks/useInViewport";
+import { useLocation, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import qs from 'qs';
+
+import { ActionCreators } from '../../../redux/search/slice';
+import { ContentContainer } from '../../shared/layout/Layout.Styled';
+import PhotoList from '../../shared/list/PhotoList';
+import Spinner from '../../shared/loader/Spinner';
+import InfiniteScroll from '../../shared/infiniteScroll';
 
 function PhotosContainer() {
+  const testParams = useParams();
+  console.log(testParams);
+  const { query } = useParams();
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const searchResults = useSelector((state) => state.search.photos.results);
+  const [page, setPage] = useState(1);
 
+  const { color, orientation } = qs.parse(location.search, { ignoreQueryPrefix: true });
 
-    const {query} = useParams();
-    const dispatch = useDispatch();
-    const searchResults = useSelector(state => state.search.photos.results);
+  useEffect(() => {
+    if (page === 1) return;
 
-    useEffect(() => {
-        dispatch(ActionCreators.getSearchPhotos({
-            query
-        }));
-    }, [dispatch, query])
+    dispatch(ActionCreators.getSearchPhotos({
+      query,
+      page,
+      color,
+      orientation,
+    }));
+  }, [dispatch, page, color, orientation]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [query]);
 
-    if(!searchResults) return <Spinner/>;
+  const next = () => {
+    setPage((p) => p + 1);
+  };
 
-    
-    return(
-        <Container>
-            <ContentContainer>
-                <PhotoList data={searchResults}/>
-            </ContentContainer>
-        </Container>
-    )
+  if (!searchResults) return <Spinner />;
+
+  return (
+    <Container>
+      <ContentContainer>
+        <InfiniteScroll
+next={next}
+length={searchResults?.length}
+        >
+          <PhotoList data={searchResults} />
+        </InfiniteScroll>
+      </ContentContainer>
+    </Container>
+  );
 }
 
 const Container = styled.div`

@@ -1,55 +1,59 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import {useParams} from "react-router-dom";
-import Spinner from "../../shared/loader/Spinner";
-import {useDispatch, useSelector} from "react-redux";
-import {ActionCreators} from "../../../redux/search/slice";
-import {ContentContainer} from "../../shared/layout/Layout.Styled";
-import GridList from "../../shared/list/GridList";
-import UserItem from "../../shared/item/UserItem";
-import {useInViewport} from "../../../hocks/useInViewport";
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Spinner from '../../shared/loader/Spinner';
+import { ActionCreators } from '../../../redux/search/slice';
+import { ContentContainer } from '../../shared/layout/Layout.Styled';
+import GridList from '../../shared/list/GridList';
+import UserItem from '../../shared/item/UserItem';
+import InfiniteScroll from '../../shared/infiniteScroll';
 
 function UsersContainer() {
+  const dispatch = useDispatch();
+  const searchResults = useSelector((state) => state.search.users.results);
 
-    const dispatch = useDispatch();
-    const searchResults = useSelector(state => state.search.users.results);
+  const { query } = useParams();
 
-    const {query} = useParams();
+  const [page, setPage] = useState(1);
 
-    const [page, setPage] = useState(1);
+  useEffect(() => {
+    if (page === 1) return;
 
+    dispatch(ActionCreators.getSearchUsers({
+      query, page,
+    }));
+  }, [dispatch, page]);
 
-    useEffect(() => {
-        dispatch(ActionCreators.getSearchUsers({
-            query, page
-        }));
-    }, [dispatch, query, page])
+  useEffect(() => {
+    setPage(1);
+  }, [query]);
 
-    const [sentinelRef, isInView] = useInViewport();
+  const next = () => {
+    setPage((p) => p + 1);
+  };
 
-    useEffect(() => {
-        if(isInView && searchResults.length) {
-            setPage((p) => p + 1)
-        }
-    }, [isInView])
+  if (!searchResults) return <Spinner />;
 
+  return (
+    <Container>
 
-    if(!searchResults) return <Spinner/>;
+      <ContentContainer>
+        <InfiniteScroll
+next={next}
+length={searchResults?.length}
+        >
+          <GridList data={searchResults}>
+            {
+                            (item) => <UserItem item={item} />
+                        }
+          </GridList>
+        </InfiniteScroll>
+      </ContentContainer>
 
-    return(
-        <Container>
-
-            <ContentContainer>
-                <GridList data={searchResults}>
-                    {
-                        (item) => <UserItem item={item}/>
-                    }
-                </GridList>
-                <Sentinel ref={sentinelRef}/>
-            </ContentContainer>
-
-        </Container>
-    )
+    </Container>
+  );
 }
 
 const Container = styled.div`
@@ -61,8 +65,5 @@ const Sentinel = styled.div`
   height: 100px;
   background: #fff;
 `;
-
-
-
 
 export default UsersContainer;

@@ -1,16 +1,15 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import cn from 'classnames';
-import {useHistory} from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 import { IconSearch } from '../../../icons';
-import {DefaultButton} from "../button/Button.Styled";
+import { DefaultButton } from '../button/Button.Styled';
 
 function SearchBox({ shape }) {
   const onSubmit = (e) => {
     e.preventDefault();
     history.push(`/search/photos/${value}`);
-
   };
 
   const [value, setValue] = useState('');
@@ -19,8 +18,7 @@ function SearchBox({ shape }) {
 
   const onChange = (event) => {
     setValue(event.target.value);
-  }
-
+  };
 
   return (
     <Container className={cn('SearchBox', shape)}>
@@ -29,11 +27,11 @@ function SearchBox({ shape }) {
           <IconSearch />
         </Button>
         <Label>
-        <Input
+          <Input
             type="text"
             placeholder="Search free high-resolution photos"
             onChange={onChange}
-        />
+          />
         </Label>
       </Form>
     </Container>
@@ -116,6 +114,5 @@ font-size: 14px;
 font-size: 15px;
   }
 `;
-
 
 export default SearchBox;

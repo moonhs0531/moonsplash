@@ -10,7 +10,7 @@ function HeaderContainer(props) {
   return (
     <Container>
       <Logo />
-      <SearchBox shape={"round"} />
+      <SearchBox shape="round" />
       <Nav />
       <Menu />
     </Container>

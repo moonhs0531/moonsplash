@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Tags({data}) {
-    const _data = data.slice(0, 3);
-    return(
-        <Container>
-            {
+function Tags({ data, limit }) {
+  const _data = limit ? data.slice(0, 3) : data;
+  return (
+    <Container>
+      {
                 _data.map((tag) => <Tag key={tag.title}>{tag.title}</Tag>)
             }
-        </Container>
-    )
+    </Container>
+  );
 }
 
 const Container = styled.div`

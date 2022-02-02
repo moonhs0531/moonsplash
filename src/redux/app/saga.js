@@ -1,5 +1,5 @@
 function* saga() {
-    yield 1;
+  yield 1;
 }
 
 export default saga;

@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function PhotoItem({ item }) {
+function PhotoItem({ item, onClick }) {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Thumb>
         <img src={item.urls.regular} alt={item.alt_description} />
       </Thumb>
@@ -22,4 +22,3 @@ const Thumb = styled.div`
 `;
 
 export default React.memo(PhotoItem);
-

@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom';
 function Nav() {
   return (
     <Container>
-        <NavLink to="/">Brands</NavLink>
-        <NavLink to="/">Explore</NavLink>
-        <NavLink to="/">Blog</NavLink>
-        <Bar />
-        <NavLink to="/">Log in</NavLink>
-        <NavLink to="/">
-            <p>Submit a Photo</p>
-        </NavLink>
+      <NavLink to="/">Brands</NavLink>
+      <NavLink to="/">Explore</NavLink>
+      <NavLink to="/">Blog</NavLink>
+      <Bar />
+      <NavLink to="/">Log in</NavLink>
+      <NavLink to="/">
+        <p>Submit a Photo</p>
+      </NavLink>
     </Container>
   );
 }

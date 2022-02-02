@@ -9,8 +9,10 @@ const Visual = () => (
     <Content>
       <h1>Unsplash</h1>
       <p>The internet’s source of freely-usable images.
-        Powered by creators everywhere.</p>
-      <SearchBox shape={"square"} />
+        Powered by creators everywhere.
+      </p>
+
+      <SearchBox shape="square" />
       <Trending>
         Trending:
         <a href="/" className="hightlighter">flower</a>
